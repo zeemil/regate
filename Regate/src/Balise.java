@@ -3,7 +3,7 @@
  * Write a description of class Balise here.
  * 
  * @author (Emilien Fritschy & Carol Hubert) 
- * @version (a version number or a date)
+ * @version (15.04.2013)
  */
 public class Balise
 {
