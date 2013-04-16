@@ -7,25 +7,34 @@
  */
 public class Balise
 {
-    private int ordre;
+    private int numero;
     private Position position;
-    private int sensDePassage;
+    private char sensDePassage;
     /**
      * Constructor for objects of class Balise
      */
-    public Balise(int ordre, Position position, int sensDePassage)
+    public Balise(int ordre, Position position, char sensDePassage)
     {
-        this.ordre = ordre;
+        this.numero = ordre;
         this.position = position;
         this.sensDePassage = sensDePassage;
     }
     
-    public int getOrdre(){
-        return ordre;
-    }
     
-    public String toString(){
-        return "Ordre : " + ordre + " sens : " + sensDePassage;
+    public int getNumero() {
+		return numero;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public char getSensDePassage() {
+		return sensDePassage;
+	}
+
+	public String toString(){
+        return "Numero : " + numero + " sens : " + sensDePassage;
     }
 
    

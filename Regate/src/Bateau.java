@@ -4,13 +4,16 @@
  */
 public class Bateau
 {
-    String nom; // nom du joueur
-    float vitesse; //en km/h
-    int cap; // en Â° (0 = NORD, 90 = EST, ...)
-    Position position;
+    private String nom; // nom du joueur
+    private float vitesse; //en km/h
+    private int cap; // en ° (0 = NORD, 90 = EST, ...)
+    private Position position;
+    private String etat;
+    private int rang;
 
     /**
-     * Constructor for objects of class Bateau
+     * Constructeur de la classe Bateau
+     * @param nom
      */
     public Bateau(String nom)
     {
@@ -18,6 +21,8 @@ public class Bateau
         vitesse = 0;
         cap = 0;
         position = new Position(0,250);
+        etat = "Inscrit";
+        rang = 0;
     }
     
     public void changerCap(int newCap){
@@ -31,12 +36,27 @@ public class Bateau
     public String getNom(){
         return nom;
     }
+    
     public int getCap(){
         return cap;
     }
     
+    /**
+     * Calcul la nouvelle position à chaque pas de simulation
+     */
+    public void deplacement(){
+    	
+    }
+    
+    public Position getPosition(){
+    	return position;
+    }
+    
+    public int getRang(){
+    	return rang;
+    }
     public String toString(){
-        return "Nom : " + nom +", vitesse : "+vitesse+", cap : " + cap;
+        return "Nom : " + nom +", vitesse : "+vitesse+", cap : " + cap + ", état : "+ etat;
     }
 
     

@@ -20,4 +20,6 @@ public class Vent
        this.direction = direction;
     }
     
+    
+    
 }

@@ -7,48 +7,80 @@
 import java.util.*;
 public class ZoneDeRegate
 {
-    private  int longueur;
-    private  int largeur;
+	private static final int NB_PAS_MAX = 100;
+    private static final int LONGUEUR = 1000;
+    private static final int LARGEUR = 500;
     private Vent vent;
     private HashMap <String, Bateau> bateaux;
     private HashMap <Integer, Balise> balises;
-    private int etat; //0 = conception, 1 = en course, 2 = terminÃ©
+    private SortedMap<Integer, Bateau> classement;
+    private int pas; //0 = conception, 1+ en course
     
-
+    /**
+     * Constructeur pour la class ZoneDeRegate
+     * @param longueur
+     * @param largeur
+     */
     public ZoneDeRegate(int longueur, int largeur){
-       this.longueur = longueur;
-       this.largeur = largeur;
-       etat = 0;
-       System.out.println("Regate en crÃ©ation");
+       pas = 0;
+       System.out.println("Regate en création");
     }
-    
+    /**
+     * Défini les paramètre du vent.
+     * @param force
+     * @param direction
+     */
     public void creeVent(int force, int direction){
         vent = new Vent(force, direction);
-        System.out.println("Vent crÃ©Ã© : force = "+force+" direction = "+direction+".");
+        System.out.println("Vent créé : force = "+force+" direction = "+direction+".");
     }
-
+    /**
+     * Crée un nouveau bateau avec le nom passé en paramètre
+     * @param nom
+     */
     public void nouveauBateau(String nom){
         bateaux.put(nom, new Bateau(nom));
-        System.out.println("Bateau crÃ©Ã© : "+bateaux.get(nom)+".");
+        System.out.println("Bateau créé : "+bateaux.get(nom)+".");
     }
-    // utilisÃ© par la classe Demo
+    /**
+     * Surcharge afin de créer un bateau créé dans la classe Demo
+     * @param bateau
+     */
     public void nouveauBateau(Bateau bateau){
         bateaux.put(bateau.getNom(), bateau);
-        System.out.println("Bateau crÃ©Ã© : "+ bateau);
+        System.out.println("Bateau créé : "+ bateau);
     }
-    
-    public void nouvelleBalise(Position pos, int sens){
+    /**
+     * Crée une balise avec sa position et le sens de passage
+     * @param pos
+     * @param sens
+     */
+    public void nouvelleBalise(Position pos, char sens){
         balises.put(balises.size()+1, new Balise(balises.size()+1, pos, sens));
-        System.out.println("Balise crÃ©Ã©e :"+ balises.get(balises.size()));
+        System.out.println("Balise créée :"+ balises.get(balises.size()));
     }
-    // utilisÃ© par la classe Demo
+    /**
+     * Surcharge afin de créer une balise dans la classe Demo
+     * @param balise
+     */
       public void nouvelleBalise(Balise balise){
-        balises.put(balise.getOrdre(),balise);
-        System.out.println("Balise crÃ©Ã©e : "+ balise);
+        balises.put(balise.getNumero(),balise);
+        System.out.println("Balise créée : "+ balise);
     }
     
-    public void demarrerRegate(){
-        etat = 1;
-        System.out.println("RÃ©gate dÃ©marrÃ©e");
+    public void depart(){
+        System.out.println("Régate démarrée");
+    }
+    /**
+     * Fait avancer la simulation d'un pas
+     */
+    public void pasSuivant(){
+    	
+    }
+    /**
+     * Termine la simulation, établi le classement
+     */
+    public void fin(){
+    	
     }
 }
