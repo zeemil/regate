@@ -13,7 +13,7 @@ public class ZoneDeRegate
     private Vent vent;
     private HashMap <String, Bateau> bateaux;
     private HashMap <Integer, Balise> balises;
-    private SortedMap<Integer, Bateau> classement;
+  //  private SortedMap <Integer, Bateau> classement;
     private int pas; //0 = conception, 1+ en course
     
     /**
@@ -23,6 +23,9 @@ public class ZoneDeRegate
      */
     public ZoneDeRegate(int longueur, int largeur){
        pas = 0;
+       bateaux = new HashMap <String, Bateau>();
+       balises = new  HashMap <Integer, Balise>();
+    //   classement = new SortedMap <Integer, Bateau>();
        System.out.println("Regate en création");
     }
     /**
@@ -38,7 +41,7 @@ public class ZoneDeRegate
      * Crée un nouveau bateau avec le nom passé en paramètre
      * @param nom
      */
-    public void nouveauBateau(String nom){
+    public void nouveauBateau(String nom){ 
         bateaux.put(nom, new Bateau(nom));
         System.out.println("Bateau créé : "+bateaux.get(nom)+".");
     }
@@ -47,8 +50,12 @@ public class ZoneDeRegate
      * @param bateau
      */
     public void nouveauBateau(Bateau bateau){
-        bateaux.put(bateau.getNom(), bateau);
-        System.out.println("Bateau créé : "+ bateau);
+    	if(bateau != null){
+    		bateaux.put(bateau.getNom(), bateau);
+        	System.out.println("Bateau créé : "+ bateau);
+    	}else{
+    		System.out.println("le bateau n'a pas été créé");
+    	}
     }
     /**
      * Crée une balise avec sa position et le sens de passage

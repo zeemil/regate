@@ -29,7 +29,7 @@ public class Bateau
         cap = newCap;
     }
     
-    public void changerVitesse(float newVitesse){
+    private void changerVitesse(float newVitesse){
         vitesse =  newVitesse;
     }
     
@@ -44,7 +44,7 @@ public class Bateau
     /**
      * Calcul la nouvelle position à chaque pas de simulation
      */
-    public void deplacement(){
+    public void avancer(){
     	
     }
     

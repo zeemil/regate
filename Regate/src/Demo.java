@@ -8,10 +8,13 @@
  */
 public class Demo
 {
+	public static void main(String[] args) {
+		new Demo();
+	}
     private ZoneDeRegate r;
     private Bateau emilien;
     private Bateau carol;
-    private Balise b1,b2,b3,b4,b5,b6,b7;
+    private Balise b1,b2,b3,b4,b5,b6,b7, b8;
 
     /**
      * Constructor for objects of class Demo
@@ -47,7 +50,8 @@ public class Demo
         
         r.depart();
         
-        
+        emilien.changerCap(0);
+        carol.changerCap(20);
         
     }
 
