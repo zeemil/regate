@@ -14,7 +14,7 @@ public class Demo
     private ZoneDeRegate r;
     private Bateau emilien;
     private Bateau carol;
-    private Balise b1,b2,b3,b4,b5,b6,b7;
+    private Balise b1,b2,b3,b4,b5,b6,b7, b8;
 
     /**
      * Constructor for objects of class Demo
@@ -38,7 +38,7 @@ public class Demo
         b5= new Balise(5, new Position(700, 280), '+'); // par le sud
         // baslises de fin
         b6= new Balise(6, new Position(990, 150), '+'); // par le sud
-        b7= new Balise(5, new Position(990, 350), '-'); // par le nord
+        b7= new Balise(7, new Position(990, 350), '-'); // par le nord
         
         r.nouvelleBalise(b1);
         r.nouvelleBalise(b2);
