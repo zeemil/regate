@@ -15,6 +15,7 @@ public class ZoneDeRegate
     private HashMap <Integer, Balise> balises;
   //  private SortedMap <Integer, Bateau> classement;
     private int pas; //0 = conception, 1+ en course
+    private int nbBateauxEnCourse;
     
     /**
      * Constructeur pour la class ZoneDeRegate
@@ -26,6 +27,7 @@ public class ZoneDeRegate
        bateaux = new HashMap <String, Bateau>();
        balises = new  HashMap <Integer, Balise>();
     //   classement = new SortedMap <Integer, Bateau>();
+       nbBateauxEnCourse = 0;
        System.out.println("Regate en création");
     }
     /**
