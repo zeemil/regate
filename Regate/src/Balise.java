@@ -20,7 +20,6 @@ public class Balise
         this.sensDePassage = sensDePassage;
     }
     
-    
     public int getNumero() {
 		return numero;
 	}
