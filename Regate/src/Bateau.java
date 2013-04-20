@@ -56,8 +56,20 @@ public class Bateau
     	return rang;
     }
     public String toString(){
-        return "Nom : " + nom +", vitesse : "+vitesse+", cap : " + cap + ", état : "+ etat;
+        return "Nom : " + nom +", vitesse : "+vitesse+", cap : " + cap + ", état : "+ etat 
+        		+ ", pos : " + position.getX() + ", " + position.getY() ;
     }
+
+	public void setEtat(String etat) {
+		this.etat = etat;
+		
+	}
+	public String getEtat(){
+		return etat;
+	}
+	public float getVitesse(){
+		return vitesse;
+	}
 
     
 }

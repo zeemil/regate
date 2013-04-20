@@ -54,7 +54,24 @@ public class Demo
         
         emilien.changerCap(0);
         carol.changerCap(20);
+        r.pasSuivant();
         
+        emilien.changerCap(50);
+        carol.changerCap(20);
+        r.pasSuivant();
+        
+        emilien.changerCap(100);
+        carol.changerCap(270);
+        r.pasSuivant();
+        
+        r.nouveauBateau("Jean"); // la création d'un bateau en cours de route doit être impossible.
+        
+        emilien.changerCap(50);
+        carol.changerCap(20);
+        r.pasSuivant();
+        r.pasSuivant();
+        r.pasSuivant();
+        r.pasSuivant();
     }
 
     

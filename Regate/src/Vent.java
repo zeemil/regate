@@ -19,7 +19,18 @@ public class Vent
        this.force = force;
        this.direction = direction;
     }
+
+	public int getForce() {
+		return force;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
     
+	public String toString(){
+		return "force : " + force + ", direction : " + direction;
+	}
     
     
 }
