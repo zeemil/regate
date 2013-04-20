@@ -11,6 +11,8 @@ public class Demo
 	public static void main(String[] args) {
 		new Demo();
 	}
+	
+	
     private ZoneDeRegate r;
     private Bateau emilien;
     private Bateau carol;
