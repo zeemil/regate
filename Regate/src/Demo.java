@@ -55,23 +55,26 @@ public class Demo
         r.depart();
         
         emilien.changerCap(0);
-        carol.changerCap(20);
-        jean.changerCap(0);
+        carol.changerCap(0);
+        jean.changerCap(50);
+        luc.changerCap(0);
         r.pasSuivant();
         
         emilien.changerCap(50);
-        carol.changerCap(20);
-        jean.changerCap(0);
+        carol.changerCap(0);
+        jean.changerCap(50);
         r.pasSuivant();
         
-        emilien.changerCap(100);
-        carol.changerCap(270);
-        jean.changerCap(0);
+        emilien.changerCap(0);
+        carol.changerCap(0);
+        jean.changerCap(100);
+        luc.changerCap(270);
         r.pasSuivant();
                 
-        emilien.changerCap(50);
-        carol.changerCap(20);
-        jean.changerCap(0);
+        emilien.changerCap(0);
+        carol.changerCap(0);
+        jean.changerCap(50);
+        luc.changerCap(20);
         r.pasSuivant();
        
         r.pasSuivant();    

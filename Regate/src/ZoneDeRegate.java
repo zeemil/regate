@@ -14,7 +14,7 @@ public class ZoneDeRegate
     private Vent vent;
     private ArrayList <Bateau> bateaux;
     private ArrayList <Balise> balises;
-    private HashSet <Bateau> classement;
+    private ArrayList <Bateau> classement;
     private int pas; //0 = conception, 1+ en course
   
    
@@ -27,7 +27,7 @@ public class ZoneDeRegate
        pas = 0;
        bateaux = new ArrayList<Bateau>();
        balises = new  ArrayList <Balise>();
-       classement = new HashSet<Bateau>();
+       classement = new ArrayList<Bateau>();
        System.out.println("Regate en création");
     }
     /**
@@ -165,8 +165,10 @@ public class ZoneDeRegate
 	    					bateau.passageBalise();
 	    					// et pour finir, si c'était la balise finale;
 	    					if(balise.getNumero() == balises.size() || balise.getNumero() == balises.size()-1){
-	    						bateau.setEtat("Arrive");
-	    	    				classement.add(bateau); // ajouté au classement
+	    						if(!classement.contains(bateau)){
+	    							bateau.setEtat("Arrive");
+	    							classement.add(bateau); // ajouté au classement
+	    						}
 	    	    				//bateaux.remove(bateau); // retiré de la course
 	    	    				
 	    	    				System.out.println("Le bateau de : " + bateau.getNom() + " est " + bateau.getEtat() 
