@@ -14,8 +14,7 @@ public class Demo
 	
 	
     private ZoneDeRegate r;
-    private Bateau emilien;
-    private Bateau carol;
+    private Bateau emilien, carol, jean;
     private Balise b1,b2,b3,b4,b5,b6,b7;
 
     /**
@@ -28,8 +27,10 @@ public class Demo
         
         emilien = new Bateau("Emilien");
         carol = new Bateau ("Carol");
+        jean = new Bateau ("Jean");
         r.nouveauBateau(emilien);
         r.nouveauBateau(carol);
+        r.nouveauBateau(jean);
         
         // balises Start
         b1= new Balise(1, new Position(10, 150), '+'); // par le sud
@@ -63,14 +64,14 @@ public class Demo
         emilien.changerCap(100);
         carol.changerCap(270);
         r.pasSuivant();
-        
-        r.nouveauBateau("Jean"); // la création d'un bateau en cours de route doit être impossible.
-        
+                
         emilien.changerCap(50);
         carol.changerCap(20);
+        jean.changerCap(60);
         r.pasSuivant();
-        r.pasSuivant();
-        r.pasSuivant();
+       
+        r.pasSuivant();    
+     
         r.pasSuivant();
     }
 

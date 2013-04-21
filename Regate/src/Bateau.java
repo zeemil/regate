@@ -1,15 +1,21 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+
 /**
  * @author Emilien Fritschy & Carol Hubert
  * @version 08.04.2013
  */
-public class Bateau
+public class Bateau 
 {
     private String nom; // nom du joueur
     private float vitesse; //en km/h
     private int cap; // en ° (0 = NORD, 90 = EST, ...)
     private Position position;
     private String etat;
-    private int rang;
+    private int nbBalisesOK;
+    private Vent vent;
+    private int duree; // durée d'un pas de simulation
 
     /**
      * Constructeur de la classe Bateau
@@ -22,17 +28,69 @@ public class Bateau
         cap = 0;
         position = new Position(0,250);
         etat = "Inscrit";
-        rang = 0;
+        nbBalisesOK = 0;
     }
     
-    public void changerCap(int newCap){
+    /**
+     * Calcul la nouvelle position à chaque pas de simulation
+     */
+    public void avancer(){
+
+	// Algorithme de déplacement
+		//coordonnées de départ
+	 	int xd = position.getX();
+	 	int yd = position.getY();
+	 	
+    	int xa, ya;			// coordonnées d’arrivée	(ce qu’on cherche)
+    						//cap	angle (Variable de classe)
+    						// vitesse	( variable de classe)
+    	float r;			 //déplacement = vitesse * durée	(10 s)
+    	
+	// vent
+    	int direction = vent.getDirection(); //angle
+    	int f = vent.getForce(); //		force
+    	
+    	// si le bateau a un angle de moins de 30° avec le vent
+    	// il reste sur place
+	    if(	(Math.abs( (cap - direction) ) < 30)){
+	    	vitesse = 0;
+	    	r = 0;
+	    	xa = xd;
+	    	ya = yd;
+	    }
+	    // sinon, il avance à la vitesse du vent.
+	    else{
+	    	vitesse = f;
+	    	r = duree * vitesse;
+	    	// nouvelles positions
+	    	xa = (int) (r * Math.cos(cap) + xd);
+	    	ya = (int) (r * Math.sin(cap) + yd);
+
+	    }
+	   
+	    position.setXY(xa, ya);
+    }
+    
+    /**
+     * Lorsque le bateau passe une balise
+     */
+    public void passageBalise(){
+    	nbBalisesOK++;
+    }
+    public int getNbBalisesOK(){
+    	return nbBalisesOK;
+    }
+	public void setVent(Vent vent) {
+		this.vent = vent;
+	}
+
+	public void changerCap(int newCap){
         cap = newCap;
     }
-    
-    private void changerVitesse(float newVitesse){
-        vitesse =  newVitesse;
+    public void setDuree(int d){
+    	this.duree = d;
     }
-    
+       
     public String getNom(){
         return nom;
     }
@@ -40,21 +98,13 @@ public class Bateau
     public int getCap(){
         return cap;
     }
-    
-    /**
-     * Calcul la nouvelle position à chaque pas de simulation
-     */
-    public void avancer(){
-    	
-    }
+       
     
     public Position getPosition(){
     	return position;
     }
     
-    public int getRang(){
-    	return rang;
-    }
+   
     public String toString(){
         return "Nom : " + nom +", vitesse : "+vitesse+", cap : " + cap + ", état : "+ etat 
         		+ ", pos : " + position.getX() + ", " + position.getY() ;
@@ -70,6 +120,5 @@ public class Bateau
 	public float getVitesse(){
 		return vitesse;
 	}
-
     
 }

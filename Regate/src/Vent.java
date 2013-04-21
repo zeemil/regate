@@ -29,7 +29,7 @@ public class Vent
 	}
     
 	public String toString(){
-		return "force : " + force + ", direction : " + direction;
+		return "force : " + force + ", direction : " + direction+"°";
 	}
     
     
