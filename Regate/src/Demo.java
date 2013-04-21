@@ -22,7 +22,7 @@ public class Demo
      */
     public Demo()
     {
-        r = new ZoneDeRegate(1000,500);
+        r = new ZoneDeRegate();
         r.creeVent(20, 300);
         
         emilien = new Bateau("Emilien");

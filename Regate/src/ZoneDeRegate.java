@@ -24,7 +24,7 @@ public class ZoneDeRegate
      * @param longueur
      * @param largeur
      */
-    public ZoneDeRegate(int longueur, int largeur){
+    public ZoneDeRegate(){
        pas = 0;
        bateaux = new ArrayList<Bateau>();
        balises = new  ArrayList <Balise>();
@@ -52,7 +52,7 @@ public class ZoneDeRegate
     		b.setVent(vent);
     		b.setDuree(DUREE_PAS);
 	        bateaux.add(b);
-	        nbBateauxEnCourse ++;
+	        
 	        System.out.println("Bateau créé : " + b);
     	}else{
     		System.out.println("Regate en cours, enregistrement impossible.");
@@ -67,7 +67,7 @@ public class ZoneDeRegate
     		bateau.setVent(vent);
     		bateau.setDuree(DUREE_PAS);
     		bateaux.add(bateau);
-    		nbBateauxEnCourse++;
+  
         	System.out.println("Bateau créé : "+ bateau);
     	}else{
     		System.out.println("le bateau n'a pas été créé");
@@ -103,9 +103,10 @@ public class ZoneDeRegate
 	        pas = 1;
 	        for(Bateau b : bateaux){
 	        	b.setEtat("En course");
+	        	nbBateauxEnCourse++;
 	        }
 	        System.out.println("Régate démarrée");
-	        System.out.println( bateaux.size() + " bateaux ont pris le départ.");
+	        System.out.println( nbBateauxEnCourse + " bateaux ont pris le départ.");
 	    
     	}else{
     		 System.out.println("Impossible de démarrer la régate : aucun bateau enregistré.");
