@@ -33,7 +33,7 @@ public class Balise
 	}
 
 	public String toString(){
-        return "Numero : " + numero + " sens : " + sensDePassage;
+        return "Numero : " + numero + ", position : "+position.getX() + ", "+position.getY()+", sens : " + sensDePassage;
     }
 
    

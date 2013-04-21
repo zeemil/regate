@@ -14,7 +14,7 @@ public class ZoneDeRegate
     private Vent vent;
     private ArrayList <Bateau> bateaux;
     private ArrayList <Balise> balises;
-    private ArrayList <Bateau> classement;
+    private HashSet <Bateau> classement;
     private int pas; //0 = conception, 1+ en course
   
    
@@ -27,7 +27,7 @@ public class ZoneDeRegate
        pas = 0;
        bateaux = new ArrayList<Bateau>();
        balises = new  ArrayList <Balise>();
-       classement = new ArrayList<Bateau>();
+       classement = new HashSet<Bateau>();
        System.out.println("Regate en création");
     }
     /**
@@ -76,8 +76,9 @@ public class ZoneDeRegate
      * @param sens
      */
     public void nouvelleBalise(Position pos, char sens){
-        balises.add(new Balise(balises.size()+1, pos, sens));
-        System.out.println("Balise créée :"+ balises.get(balises.size()));
+    	Balise balise = new Balise(balises.size()+1, pos, sens);
+        balises.add(balise);
+        System.out.println("Balise créée :"+ balise);
     }
     /**
      * Surcharge afin de créer une balise dans la classe Demo
@@ -116,25 +117,19 @@ public class ZoneDeRegate
     	// passage au pas suivant seulement si la cours n'est pas terminée   	
     	if(pas <= NB_PAS_MAX && bateaux.size() > 0 ){
     		
-    		System.out.println("Pas #" +pas);
+    		System.out.println("\nPas #" +pas);
     		
-        	Iterator<Bateau> it = bateaux.iterator();
-        	boolean trouve = false;
-        	
-    		while (!trouve && it.hasNext()){
-    			Bateau b = it.next();
-    			
+         	
+    		for (Bateau b : bateaux){
+    		
     			if(b.getEtat().equals("En course")){
     				b.avancer();
     				verifPosition(b);
-    				if(b.getEtat() != "Elimine")
-    					System.out.println(b);
+    				System.out.println(b);
     				
     			}else if(b.getEtat().equals("Arrive")){
-    				System.out.println("le bateau de : " + b.getNom() + "est " + b.getEtat() + "rang :"+ classement.size());
+    				// on ne fait plus rien si le bateau est arrivé.
     				
-    				classement.add(b); // ajouté au classement
-    				it.remove(); // retiré de la course
     			}else if(b.getEtat().equals("Elimine")){
     				System.out.println("Le bateau de "+b.getNom() + " est éléminé.");
     			}	
@@ -148,11 +143,11 @@ public class ZoneDeRegate
     }
     /**
      * Vérification de la nouvelle position d'un bateau
-     * @param b
+     * @param bateau
      */
-    private void verifPosition(Bateau b) {
-    	int xa = b.getPosition().getX();
-    	int ya = b.getPosition().getY();
+    private void verifPosition(Bateau bateau) {
+    	int xa = bateau.getPosition().getX();
+    	int ya = bateau.getPosition().getY();
     	
     	// vérifications des positions
 	    // si elles rentrent dans le cadre
@@ -160,24 +155,30 @@ public class ZoneDeRegate
 	    	//si elles sont correctes,
 	    	// vérifier si on dépasse une balise (plusieurs balises peuvent être dépassées en même temps)
 	    	for(Balise balise : balises){
-	    		// si on a pas déjà passé cette balise
-	    		if(b.getNbBalisesOK() < balise.getNumero()){
+	    		// si on a pas déjà passé cette balise et qu'on est pas éléminé.
+	    		if((bateau.getNbBalisesOK() < balise.getNumero()) && bateau.getEtat() != "Elimine"){
 	    			// on vérifie si on l'a dépassée
-	    			if(xa > b.getPosition().getX()){
+	    			if(xa > balise.getPosition().getX()){
 	    				// et on vérifie encore que ce soit dans le bon sens
-	    				if(balise.getSensDePassage() == '-' && ya < b.getPosition().getY()){
-	    					b.passageBalise();
+	    				if((balise.getSensDePassage() == '+' && ya > balise.getPosition().getY()) ||
+	    						(balise.getSensDePassage() == '-' && ya < balise.getPosition().getY())){
+	    					bateau.passageBalise();
 	    					// et pour finir, si c'était la balise finale;
 	    					if(balise.getNumero() == balises.size() || balise.getNumero() == balises.size()-1){
-	    						b.setEtat("Arrive");
+	    						bateau.setEtat("Arrive");
+	    	    				classement.add(bateau); // ajouté au classement
+	    	    				//bateaux.remove(bateau); // retiré de la course
+	    	    				
+	    	    				System.out.println("Le bateau de : " + bateau.getNom() + " est " + bateau.getEtat() 
+	    								+ " rang :"+ classement.size());
 	    					}
 	    					
-	    					System.out.println( b.getNom() +" : Balise #"+ balise.getNumero()+" passée.");
+	    					System.out.println( bateau.getNom() +" : Balise #"+ balise.getNumero()+" passée.");
 	    				}else{
 	    					// la balise est passée dans le mauvais sens --> éliminé
-	    					b.setEtat("Elimine");
+	    					bateau.setEtat("Elimine");
 	    					
-	    					System.out.println( b.getNom() +" : Balise #"+balise.getNumero()+"passée dans le mauvais sens.");
+	    					System.out.println( "Le bateau de "+bateau.getNom() +" est éliminé : balise #"+balise.getNumero()+" passée dans le mauvais sens.");
 	    							
 	    				}
 	    			}
@@ -186,8 +187,8 @@ public class ZoneDeRegate
 	    	}
 	    	
 	    }else{
-	    	b.setEtat("Elimine");
-	    	System.out.println(b.getNom() +" depasse le cadre : éliminé."); // sinon, il faut voire ce que l'on fait (on reste sur place pour l'instant
+	    	bateau.setEtat("Elimine");
+	    	System.out.println("Le bateau de " + bateau.getNom() +" est éliminé : depassement du cadre."); // sinon, il faut voire ce que l'on fait (on reste sur place pour l'instant
 	    }
 	}
 	/**
@@ -195,13 +196,14 @@ public class ZoneDeRegate
      */
     public void fin(){
     	
-    	System.out.println("Regate terminée.");
+    	System.out.println("\nRegate terminée.");
+    	System.out.println("---------------------------------");
     	System.out.println("Classement arrivées : ");
     	
-   	if(classement.size() > 0){
+   	if(!classement.isEmpty()){
    			int rang=1;
 	    	for(Bateau b : classement ){
-	    		System.out.println("Rang : " + rang + ", " + b.getNom());
+	    		System.out.println("Rang " + rang + " : " + b.getNom());
 	    		rang++;
 	    	}
     	}
@@ -210,9 +212,10 @@ public class ZoneDeRegate
     	}
 	    	
     	System.out.println("---------------------------------");
-    	
+    	System.out.println("Les autres : ");
     	for(Bateau b : bateaux ){
-    		System.out.println("Bateau " + b.getNom() + " : " + b.getEtat());
+    		if(!b.getEtat().equals("Arrive"))
+    			System.out.println("Bateau " + b.getNom() + " : " + b.getEtat());
     	}
     }
 }
