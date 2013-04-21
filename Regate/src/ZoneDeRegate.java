@@ -7,7 +7,7 @@
 import java.util.*;
 public class ZoneDeRegate
 {
-	private static final int NB_PAS_MAX = 5;
+	private static final int NB_PAS_MAX = 10;
 	private static final int DUREE_PAS = 10; 	// en secondes
     private static final int LONGUEUR = 1000; 	// en mètres
     private static final int LARGEUR = 500; 	// en mètres
@@ -16,6 +16,7 @@ public class ZoneDeRegate
     private ArrayList <Balise> balises;
     private ArrayList <Bateau> classement;
     private int pas; //0 = conception, 1+ en course
+    private int nbBateauxEnCourse;
   
    
     /**
@@ -28,7 +29,9 @@ public class ZoneDeRegate
        bateaux = new ArrayList<Bateau>();
        balises = new  ArrayList <Balise>();
        classement = new ArrayList<Bateau>();
+       nbBateauxEnCourse = 0;
        System.out.println("Regate en création");
+       
     }
     /**
      * Défini les paramètre du vent.
@@ -49,7 +52,7 @@ public class ZoneDeRegate
     		b.setVent(vent);
     		b.setDuree(DUREE_PAS);
 	        bateaux.add(b);
-	        
+	        nbBateauxEnCourse ++;
 	        System.out.println("Bateau créé : " + b);
     	}else{
     		System.out.println("Regate en cours, enregistrement impossible.");
@@ -64,7 +67,7 @@ public class ZoneDeRegate
     		bateau.setVent(vent);
     		bateau.setDuree(DUREE_PAS);
     		bateaux.add(bateau);
-    		
+    		nbBateauxEnCourse++;
         	System.out.println("Bateau créé : "+ bateau);
     	}else{
     		System.out.println("le bateau n'a pas été créé");
@@ -115,7 +118,7 @@ public class ZoneDeRegate
      */
     public void pasSuivant(){
     	// passage au pas suivant seulement si la cours n'est pas terminée   	
-    	if(pas <= NB_PAS_MAX && bateaux.size() > 0 ){
+    	if(pas < NB_PAS_MAX && nbBateauxEnCourse > 0 ){
     		
     		System.out.println("\nPas #" +pas);
     		
@@ -128,9 +131,10 @@ public class ZoneDeRegate
     				System.out.println(b);
     				
     			}else if(b.getEtat().equals("Arrive")){
-    				// on ne fait plus rien si le bateau est arrivé.
+    				// on doit gérer les arrivées dans verifPosition car rien n'est fait si un bateau arrive lors du dernier pas.
     				
     			}else if(b.getEtat().equals("Elimine")){
+    				nbBateauxEnCourse--;
     				System.out.println("Le bateau de "+b.getNom() + " est éléminé.");
     			}	
     		} 	
@@ -167,9 +171,10 @@ public class ZoneDeRegate
 	    					if(balise.getNumero() == balises.size() || balise.getNumero() == balises.size()-1){
 	    						if(!classement.contains(bateau)){
 	    							bateau.setEtat("Arrive");
+	    							nbBateauxEnCourse--;
 	    							classement.add(bateau); // ajouté au classement
 	    						}
-	    	    				//bateaux.remove(bateau); // retiré de la course
+	    	    				
 	    	    				
 	    	    				System.out.println("Le bateau de : " + bateau.getNom() + " est " + bateau.getEtat() 
 	    								+ " rang :"+ classement.size());
@@ -179,7 +184,7 @@ public class ZoneDeRegate
 	    				}else{
 	    					// la balise est passée dans le mauvais sens --> éliminé
 	    					bateau.setEtat("Elimine");
-	    					
+	    					nbBateauxEnCourse--;
 	    					System.out.println( "Le bateau de "+bateau.getNom() +" est éliminé : balise #"+balise.getNumero()+" passée dans le mauvais sens.");
 	    							
 	    				}
@@ -197,8 +202,8 @@ public class ZoneDeRegate
      * Termine la simulation, établi le classement
      */
     public void fin(){
-    	
-    	System.out.println("\nRegate terminée.");
+  
+    	System.out.println("\nRegate terminée en "+pas+" pas sur "+NB_PAS_MAX+".");
     	System.out.println("---------------------------------");
     	System.out.println("Classement arrivées : ");
     	
@@ -210,7 +215,7 @@ public class ZoneDeRegate
 	    	}
     	}
     	else {
-    		System.out.println("Aucun bateau n'a passé la ligne d'arrivée en "+ NB_PAS_MAX + " pas");
+    		System.out.println("Aucun bateau n'a passé la ligne d'arrivée en "+ NB_PAS_MAX + " pas.");
     	}
 	    	
     	System.out.println("---------------------------------");

@@ -29,6 +29,7 @@ public class Demo
         carol = new Bateau ("Carol");
         jean = new Bateau ("Jean");
         luc = new Bateau("Luc");
+        
         r.nouveauBateau(emilien);
         r.nouveauBateau(carol);
         r.nouveauBateau(jean);
@@ -53,7 +54,7 @@ public class Demo
         r.nouvelleBalise(b7);
         
         r.depart();
-        
+       
         emilien.changerCap(0);
         carol.changerCap(0);
         jean.changerCap(50);
@@ -76,7 +77,7 @@ public class Demo
         jean.changerCap(50);
         luc.changerCap(20);
         r.pasSuivant();
-       
+      
         r.pasSuivant();    
      
         r.pasSuivant(); // fin
